@@ -1,0 +1,22 @@
+{
+    "name": "astro-sass-template-no-scoped-styles",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "astro": "^4.7.0",
+        "astro-icon": "^1.1.2",
+        "lenis": "^1.1.16"
+    },
+    "devDependencies": {
+        "prettier": "^3.3.3",
+        "prettier-plugin-astro": "^0.14.1",
+        "sass": "^1.76.0"
+    }
+}
