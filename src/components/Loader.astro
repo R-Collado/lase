@@ -1,0 +1,129 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="loader">
+  <Icon name="headphones" size="10rem" />
+  <h2 id="loader-text">the music that themes your life</h2>
+</div>
+
+<style lang="scss">
+  .loader {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: rgb(36, 36, 36);
+  }
+
+  svg {
+    margin: 0 auto;
+  }
+
+  #loader-text {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 400;
+    transform: translateY(-1.5rem);
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  // import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+  import SplitType from "split-type";
+
+  // gsap.registerPlugin(DrawSVGPlugin);
+
+  const tl = gsap.timeline();
+
+  const loader = document.querySelector(".loader");
+  const icon = loader.querySelector("svg");
+  const iconPaths = icon.querySelectorAll("path");
+  const headband = iconPaths[0];
+
+  const songs = document.querySelectorAll("#song-list li");
+
+  const text = new SplitType("#loader-text");
+  const heading = new SplitType("h1");
+
+  tl.from(headband, {
+    duration: 1,
+    drawSVG: 0,
+  });
+
+  tl.fromTo(
+    icon,
+    {
+      y: 20,
+    },
+    {
+      y: 0,
+      duration: 0.5,
+    },
+  );
+
+  // SplitType gives 'char' class to each character
+  tl.fromTo(
+    "#loader-text .char",
+    {
+      y: "2rem",
+    },
+    {
+      y: 0,
+      stagger: 0.03,
+      duration: 0.4,
+    },
+  );
+
+  tl.to(loader, {
+    opacity: 0,
+    duration: 1,
+  });
+
+  tl.set(loader, {
+    display: "none",
+  });
+
+  tl.fromTo(
+    "h1 .char",
+    {
+      y: "5rem",
+    },
+    {
+      y: 0,
+      stagger: 0.03,
+      duration: 0.4,
+    },
+  );
+
+  tl.fromTo(
+    songs,
+    {
+      x: "200%",
+    },
+    {
+      x: 0,
+      stagger: 0.15,
+      duration: 0.4,
+    },
+  );
+
+  const introductionMessage = document.querySelector("#introduction-message");
+  const introductionOverlay = document.querySelector(".warning-overlay");
+
+  if (!localStorage.getItem("visited")) {
+    tl.to(introductionMessage, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.25,
+      ease: "sine.out",
+    });
+    tl.set(introductionOverlay, { opacity: 1, pointerEvents: "all" });
+  }
+</script>

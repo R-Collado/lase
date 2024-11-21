@@ -1,0 +1,82 @@
+---
+
+---
+
+<div class="warning-overlay"></div>
+<article id="introduction-message">
+  <h3>Hello! This is your first time coming!</h3>
+  <p>This website will play sounds.</p>
+  <p>
+    Whenever you click a song from the list, the website will start playing it.
+  </p>
+  <p>You can pause and play the song using the spacebar.</p>
+  <p>
+    If you don't want to hear sounds or you are in a public place, please close
+    the website and come back later. Thank you!
+  </p>
+</article>
+
+<style>
+  .warning-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(10, 10, 10, 0.274);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  article {
+    background-color: rgb(14, 13, 13);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    width: 25rem;
+    transform: translate(-50%, -50%) scale(0);
+    padding: 2rem 2rem;
+    border-radius: 10px;
+    opacity: 0;
+  }
+
+  h3 {
+    color: #fff;
+    margin: 0 auto;
+    max-width: fit-content;
+    margin-block: 2rem;
+    font-size: 1.5rem;
+  }
+
+  p {
+    color: #d1d1d1;
+    font-size: 1rem;
+
+    & + * {
+      margin-top: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const overlay = document.querySelector(".warning-overlay") as HTMLDivElement;
+  const message = document.querySelector(
+    "#introduction-message",
+  ) as HTMLDivElement;
+
+  overlay.onclick = () => {
+    localStorage.setItem("visited", "true");
+
+    gsap.to(message, {
+      duration: 0.25,
+      opacity: 0,
+      scale: 0,
+    });
+
+    gsap.set(overlay, {
+      opacity: 0,
+      display: "none",
+    });
+  };
+</script>

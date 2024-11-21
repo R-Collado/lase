@@ -12,7 +12,10 @@
     "dependencies": {
         "astro": "^4.7.0",
         "astro-icon": "^1.1.2",
-        "lenis": "^1.1.16"
+        "gsap": "^3.12.5",
+        "gsap-trial": "^3.12.5",
+        "lenis": "^1.1.16",
+        "split-type": "^0.3.4"
     },
     "devDependencies": {
         "prettier": "^3.3.3",
