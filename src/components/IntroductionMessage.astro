@@ -66,6 +66,14 @@
   ) as HTMLDivElement;
 
   overlay.onclick = () => {
+    setVisited();
+  };
+
+  message.onclick = () => {
+    setVisited();
+  };
+
+  const setVisited = () => {
     localStorage.setItem("visited", "true");
 
     gsap.to(message, {
