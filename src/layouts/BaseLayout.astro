@@ -113,6 +113,7 @@ const { title } = Astro.props;
 
 <script>
   import { gsap } from "gsap";
+  import { fadeOutOverlay, resetOverlay } from "../animations/overlay";
 
   const songList = document.querySelector("#song-list");
   const songPreview = songList.querySelector(
@@ -125,19 +126,6 @@ const { title } = Astro.props;
   ) as HTMLImageElement;
 
   const tl = gsap.timeline({ paused: true });
-
-  tl.fromTo(
-    ".overlay",
-    {
-      y: 0,
-    },
-    {
-      y: "-100%",
-      duration: 0.5,
-      ease: "sine.in",
-    },
-    0,
-  );
 
   tl.fromTo(
     ".song-image img",
@@ -201,7 +189,8 @@ const { title } = Astro.props;
       setTimeout(() => {
         songImage.src = `/song-images/${song.dataset.value}.jpg`;
         songImage.dataset.actualSong = song.dataset.value;
-        tl.play(0);
+        fadeOutOverlay();
+        tl.play();
       }, 1000);
     });
   });
@@ -212,14 +201,6 @@ const { title } = Astro.props;
       toggleAudio();
     }
   });
-
-  const resetOverlay = () => {
-    gsap.to(".overlay", {
-      y: "0",
-      duration: 0.5,
-      ease: "sine.in",
-    });
-  };
 
   const toggleAudio = () => {
     const audio = document.querySelector(".audio") as HTMLAudioElement;
